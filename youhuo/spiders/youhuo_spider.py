@@ -2,7 +2,7 @@
 
 from scrapy import Spider
 import scrapy
-import re
+import re, json
 from scrapy.selector import Selector
 class YouHuoSpider(Spider):
     name = 'youhuo'
@@ -27,6 +27,9 @@ class YouHuoSpider(Spider):
         if current_price:
             current_price=str(current_price[0])
         price_info=re.findall('PING_YOU_VIEW_ITEM =(.*?);',response.body.decode("utf-8"),re.S)
+        print(price_info[0])
+        if price_info:
+            price_info=json.loads(price_info[0].replace('// 宽x高','').replace("'",'"'))
         print(current_price)
         print(origin_price)
         print(price_info)
