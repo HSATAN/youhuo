@@ -44,8 +44,12 @@ class YouHuoSpider(Spider):
         print(colors)
 
         sizes = sel.xpath('//div[@class="size-wrapper pull-left"]/ul')
-        for size_node in sizes:
+        sku_list = []
+        for index, size_node in enumerate(sizes):
+            data = {}
             size_list = size_node.xpath('./li')
+            data['color'] = colors[index]
+            print(index)
             for  size_li in size_list:
                 data_sku = size_li.xpath('./@data-sku').extract()
                 data_num = size_li.xpath('./@data-num').extract()
@@ -55,4 +59,7 @@ class YouHuoSpider(Spider):
                 print(data_num)
                 print(data_name)
                 print(data_info)
+                data['']
+
+            sku_list.append(data)
 
