@@ -10,5 +10,18 @@ import scrapy
 
 class YouhuoItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    name = scrapy.Field()
+    spu_id = scrapy.Field()
+    origin_price = scrapy.Field()
+    current_price = scrapy.Field()
+    sizes = scrapy.Field()
+    url = scrapy.Field()
+    info = scrapy.Field()
+    size_info = scrapy.Field()
+    brand = scrapy.Field()
+    catogory_first_id = scrapy.Field()
+    category_first_name = scrapy.Field()
+    category_last_id = scrapy.Field()
+    category_last_name = scrapy.Field()
+    colors = scrapy.Field()
+
