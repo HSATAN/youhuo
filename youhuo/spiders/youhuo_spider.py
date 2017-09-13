@@ -50,16 +50,24 @@ class YouHuoSpider(Spider):
             size_list = size_node.xpath('./li')
             data['color'] = colors[index]
             print(index)
+            data['sku']=[]
             for  size_li in size_list:
+                sku_item = {}
                 data_sku = size_li.xpath('./@data-sku').extract()
                 data_num = size_li.xpath('./@data-num').extract()
                 data_name = size_li.xpath('./@data-name').extract()
                 data_info = size_li.xpath('./@data-info').extract()
-                print(data_sku)
-                print(data_num)
-                print(data_name)
-                print(data_info)
-                data['']
+                # print(data_sku)
+                # print(data_num)
+                # print(data_name)
+                # print(data_info)
+                sku_item['sku_id'] = data_sku[0]
+                sku_item['sku_num'] = data_num[0]
+                sku_item['sku_name'] = data_name[0]
+                sku_item['sku_info'] = data_info[0]
+                data['sku'].append(sku_item)
 
             sku_list.append(data)
 
+        for item in sku_list:
+            print(item)
