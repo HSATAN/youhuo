@@ -25,4 +25,8 @@ class YouhuoItem(scrapy.Item):
     category_last_name = scrapy.Field()
     colors = scrapy.Field()
     color_num = scrapy.Field()  # 颜色数目
+    image_urls = scrapy.Field()
+    description = scrapy.Field()
+    sku_list = scrapy.Field()
+    currency_code = scrapy.Field()
 

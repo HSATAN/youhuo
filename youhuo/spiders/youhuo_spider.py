@@ -2,6 +2,7 @@
 
 from scrapy import Spider
 import scrapy
+from youhuo.items import YouhuoItem
 import re, json
 from scrapy.selector import Selector
 import sys
@@ -36,6 +37,7 @@ class YouHuoSpider(Spider):
             price_info=json.loads(price_info[0].replace('// 宽x高','').replace("'",'"'))
             origin_price=price_info['orig_price']
             current_price=price_info['price']
+            spu_id = price_info['spu_id']
         print(current_price)
         print(origin_price)
         print(price_info)
@@ -94,34 +96,26 @@ class YouHuoSpider(Spider):
                 logging.error(e)
         print(info_data)
 
-        comfort_data = []
-        # comfort_node = response.selector.xpath('//ul[@class="comfort clearfix"]')
-        # print comfort_node
-        # for comfort_sub_node in comfort_node:
-        #     print('============================')
-        #     low_level = comfort_sub_node.xpath('./span[@class="min-des"]/text()').extract()[0].strip()
-        #     title = comfort_sub_node.xpath('./span[@class="comfort-title"]/text()').extract()[0].strip()
-        #     high_level = comfort_sub_node.xpath('./span[@class="max-des"]/text()').extract()[0].strip()
-        #     rank = len(comfort_sub_node.xpath('./span[contains(@class,"comfort-block")]/text()').extract())
-        #     data = {}
-        #     data['low_level'] = low_level
-        #     data['high_level'] = high_level
-        #     data['title'] = title
-        #     data['rank'] = rank
-        #     comfort_data.append(data)
-        # print(comfort_data)
-        #
-        # if not comfort_node:
-        #     comfort_node = re.findall('comfort clearfix">(.*?)</ul>', response.body, re.S)
-        #     print comfort_node
-        # with open('page.html', 'w') as f:
-        #     f.writelines(response.body)
-
         desc_node = sel.xpath('//div[@id="details-html"]/em[@class="details-word"]/text()').extract()
         if desc_node:
             desc = desc_node[0]
-        print desc
-        print color_num
+        print (desc)
+        print (color_num)
 
         images_url = sel.xpath('//div[@id="details-html"]/p/img/@data-original').extract()
-        print images_url
+        print (images_url)
+        item = YouhuoItem()
+        item['name'] = name
+        item['spu_id'] = spu_id
+        item['image_urls'] = images_url
+        item['description'] = desc
+        item['sku_list'] = sku_list
+        item['currency_code'] = currency_code
+        item['color_num'] = color_num
+        item['origin_price'] = origin_price
+        item['current_price'] = current_price
+        item['category_first_name'] = category_first_name
+        item['category_last_name'] = category_last_name
+        print('-----------------------------')
+        print(item)
+        print('-----------------------------')
