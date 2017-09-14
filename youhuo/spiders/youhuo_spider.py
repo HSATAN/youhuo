@@ -122,3 +122,6 @@ class YouHuoSpider(Spider):
             desc = desc_node[0]
         print desc
         print color_num
+
+        images_url = sel.xpath('//div[@id="details-html"]/p/img/@data-original').extract()
+        print images_url
